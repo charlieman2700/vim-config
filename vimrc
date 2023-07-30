@@ -84,7 +84,7 @@ nnoremap <Esc> :nohlsearch<CR>
 
 "Whichkey
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-set timeoutlen=500
+set timeoutlen=130
 
 
 " Save and close
