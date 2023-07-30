@@ -1,3 +1,20 @@
+" Defaults
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-svelte-kit',
+  \ ]
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/tailwindcss')
+  let g:coc_global_extensions += ['@yaegassy/coc-tailwindcss3']
+endif
+
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence

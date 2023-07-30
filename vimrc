@@ -14,29 +14,20 @@ Plug 'junegunn/fzf.vim'
 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = [
-  \ 'coc-tsserver',
-  \ 'coc-svelte-kit',
-  \ ]
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-  let g:coc_global_extensions += ['coc-prettier']
-endif
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/tailwindcss')
-  let g:coc_global_extensions += ['@yaegassy/coc-tailwindcss3']
-endif
-
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
 
 " Funcionality
 Plug 'preservim/nerdtree'
+Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'liuchengxu/vim-which-key'
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'jiangmiao/auto-pairs'
+
+
 
 " Syntax 
 Plug 'othree/html5.vim'
@@ -51,19 +42,25 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'ericbn/vim-solarized'
 Plug 'adonaldson/vim-tictoc'
 
+
 call plug#end()
 
 " Options
 set number
 set termguicolors
+set ignorecase
+set smartcase
+set hlsearch
 
 set hidden
 let g:airline#extensions#tabline#enabled = 1
 
 syntax enable
 set background=dark
-colorscheme spaceduck
 
+
+" Colorschemes
+colorscheme spaceduck
 
 
 " COC
@@ -71,7 +68,6 @@ runtime coc.vim
 
 " UNDO
 runtime undoStore.vim
-
 
 
 " Move between windows using CTRL + h/l/j/k
@@ -82,6 +78,14 @@ nnoremap <C-k> <C-w>k
 
 " Mappings
 let mapleader = " "
+nnoremap <Esc> :nohlsearch<CR>
+
+" nnoremap <ESC> :nohl<CR>
+
+"Whichkey
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+set timeoutlen=500
+
 
 " Save and close
 nnoremap <leader>w :w<CR>
@@ -107,3 +111,6 @@ nnoremap <leader>ff :GFiles<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fc :Colors<CR>
 nnoremap <leader>fm :Maps<CR>
+
+" Easymotion
+nmap s <Plug>(easymotion-overwin-f2)
