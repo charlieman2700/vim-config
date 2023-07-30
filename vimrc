@@ -82,6 +82,11 @@ nnoremap <C-k> <C-w>k
 
 " Mappings
 let mapleader = " "
+
+" Save and close
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
 " NerdTree
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>e :NERDTreeToggle<CR>
@@ -95,3 +100,10 @@ nmap <leader>lj  <Plug>(coc-diagnostic-next)
 nnoremap <S-L> :bnext<CR>
 nnoremap <S-H> :bprev<CR>
 nnoremap <leader>x :bdelete<CR>
+
+" FZF
+nnoremap <leader>fa :Files<CR>
+nnoremap <leader>ff :GFiles<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fc :Colors<CR>
+nnoremap <leader>fm :Maps<CR>
