@@ -7,6 +7,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 set nocompatible
 
 call plug#begin()
+set mouse=a
 
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -22,7 +23,7 @@ Plug 'prisma/vim-prisma'
 " Funcionality
 Plug 'preservim/nerdtree'
 Plug 'unkiwii/vim-nerdtree-sync'
-" Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'liuchengxu/vim-which-key'
@@ -32,17 +33,25 @@ Plug 'craigemery/vim-autotag'
 Plug 'github/copilot.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+
+
+" PHPactor
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
 
 " Syntax 
 Plug 'evanleck/vim-svelte'
-" Plug 'pangloss/vim-javascript'
-" Plug 'leafgarland/typescript-vim'
 Plug 'vieira/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'StanAngeloff/php.vim'
+
 
 "UI
-
 Plug 'Yggdroot/indentLine'
 
 " Colorschemes
@@ -66,7 +75,6 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Testing
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/context_filetype.vim'
-Plug 'preservim/nerdcommenter'
 call plug#end()
 
 " Options
@@ -194,55 +202,9 @@ set list lcs=tab:\|\
 syntax enable
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_material_background = 'medium'
-colorscheme gruvbox-material
+colorscheme tokyonight
 filetype plugin on
 
 
 
-" Settings: context_filetype
-
- if !exists('g:context_filetype#same_filetypes')
-   let g:context_filetype#filetypes = {}
- endif
-
- let g:context_filetype#filetypes.svelte =
- \ [
- \   {'filetype' : 'javascript', 'start' : '<script \?.*>', 'end' : '</script>'},
- \   {
- \     'filetype': 'typescript',
- \     'start': '<script\%( [^>]*\)\? \%(ts\|lang="\%(ts\|typescript\)"\)\%( [^>]*\)\?>',
- \     'end': '',
- \   },
- \   {'filetype' : 'css', 'start' : '<style \?.*>', 'end' : '</style>'},
- \ ]
-
- let g:ft = ''
-
-" " Settings: NERDCommenter
-
-let g:NERDCustomDelimiters = { 'html': { 'left': '<!--', 'right': '-->' } }
-
-fu! NERDCommenter_before()
-  if (&ft == 'html') || (&ft == 'svelte')
-  let g:ft = &ft
-  let cfts = context_filetype#get_filetypes()
-  if len(cfts) > 0
-    if cfts[0] == 'svelte'
-      let cft = 'html'
-    elseif cfts[0] == 'scss'
-      let cft = 'css'
-    else
-      let cft = cfts[0]
-    endif
-    exe 'setf ' . cft
-    endif
-  endif
-endfu
-
-fu! NERDCommenter_after()
-  if (g:ft == 'html') || (g:ft == 'svelte')
-  exec 'setf ' . g:ft
-  let g:ft = ''
-  endif
-endfu
 
