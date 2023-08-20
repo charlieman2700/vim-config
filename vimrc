@@ -32,10 +32,13 @@ Plug 'easymotion/vim-easymotion'
 Plug 'craigemery/vim-autotag'
 Plug 'github/copilot.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Snippets
-Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 
 
 " PHPactor
@@ -49,6 +52,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'StanAngeloff/php.vim'
+Plug 'jwalton512/vim-blade'
 
 
 "UI
@@ -56,19 +60,14 @@ Plug 'Yggdroot/indentLine'
 
 " Colorschemes
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
-Plug 'ghifarit53/tokyonight-vim'
 Plug 'ericbn/vim-solarized'
-Plug 'adonaldson/vim-tictoc'
 Plug 'morhetz/gruvbox'
 Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'sainnhe/gruvbox-material'
-Plug 'Rigellute/shades-of-purple.vim'
-Plug 'cocopon/iceberg.vim'
-Plug 'dracula/vim'
-Plug 'sainnhe/everforest'
-Plug 'sainnhe/edge'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'ayu-theme/ayu-vim'
+Plug 'rafalbromirski/vim-aurora'
+Plug 'bluz71/vim-nightfly-colors', { 'as': 'nightfly' }
 
 
 
@@ -85,8 +84,17 @@ set smartcase
 set hlsearch
 set t_Co=256
 
-filetype plugin indent on
-" show existing tab with 4 spaces width
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * checktime
+
+" Save on SUDO (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!" show existing tab with 4 spaces width
+
 set tabstop=2
 " when indenting with '>', use 4 spaces width
 set shiftwidth=2
@@ -108,6 +116,19 @@ augroup rainbow_lisp
   autocmd!
   autocmd FileType lisp,clojure,scheme,typescript,javascript RainbowParentheses
 augroup END
+
+" Use a line cursor within insert mode and a block cursor everywhere else.
+"
+" Reference chart of values:
+"   Ps = 0  -> blinking block.
+"   Ps = 1  -> blinking block (default).
+"   Ps = 2  -> steady block.
+"   Ps = 3  -> blinking underline.
+"   Ps = 4  -> steady underline.
+"   Ps = 5  -> blinking bar (xterm).
+"   Ps = 6  -> steady bar (xterm).
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 
 
@@ -172,7 +193,7 @@ nnoremap <leader>x :bdelete<CR>
 
 " FZF
 nnoremap <leader>fa :Files<CR>
-nnoremap <leader>ff :GFiles<CR>
+nnoremap <leader>ff :GFiles?<CR>
 nnoremap <leader>hh :Buffers<CR>
 nnoremap <leader>fc :Colors<CR>
 nnoremap <leader>fm :Maps<CR>
@@ -200,11 +221,14 @@ inoremap {;<CR> {<CR>};<ESC>O
 set list lcs=tab:\|\ 
 " Colorschemes
 syntax enable
+set nowrap
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_material_background = 'medium'
-colorscheme tokyonight
+colorscheme spaceduck
 filetype plugin on
 
 
 
 
+
+let g:markdown_fenced_languages = ['sql']

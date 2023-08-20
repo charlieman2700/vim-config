@@ -18,8 +18,14 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
 endif
 if isdirectory('./vendor') && isdirectory('./vendor/laravel')
   let g:coc_global_extensions += ['coc-blade']
+  let g:coc_global_extensions += ['@yaegassy/coc-laravel']
   let g:coc_global_extensions += ['coc-phpactor']
 endif
+
+if isdirectory('./target') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-rust-analyzer ']
+endif
+
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
